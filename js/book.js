@@ -12,30 +12,40 @@ const totalResult = document.getElementById('total-result')
 
 search.addEventListener('click', function(){
    const searchText = searchInput.value;
-   if(search === "") {
-       errorHandling.innerText="Search Field is Empty";
+   // if(searchInput.value === "") {
+   //     errorHandling.innerText="Search Field is Empty";
        
-   }
+   // }
+    errorHandling.innerText ="";
 // clearing DOM after new search----------------------------------
    bookContainer.innerHTML = " "; 
    totalResult.innerText = "";
    searchInput.value = "";
+  
+
+  
 //   fetch section-------------------------------------------------
    const url = `http://openlibrary.org/search.json?q=${searchText}`;
    fetch(url)
    .then (res => res.json())
    .then (data => {
-        if(data.status === 404){
+   //     if(searchInput.value === "") {
+   //     errorHandling.innerText="Search Field is Empty";
+   // }
+        if(data.docs !== (-1)){
            errorHandling.innerText = " No Data Found"
         } else{
            errorHandling.innerText = "";
         }
        
        data.docs.forEach(item => {
-          totalResult.innerText=`Total Result Found (${data.q}): ${data.numFound}`
+         
+          totalResult.innerText=`Total Result Found For (${data.q}): ${data.numFound}`
+           
           const div = document.createElement('div') 
           div.classList.add('col-md-4')
           div.classList.add('mb-4')
+          
           div.innerHTML=`
             <!-- image section -->
             <div class="rounded overflow-hidden h-100  border p-5 ">
@@ -61,6 +71,8 @@ search.addEventListener('click', function(){
             
             </div>
           `;
+          errorHandling.innerText ="";
+
           bookContainer.appendChild(div)
        })
     
