@@ -29,15 +29,13 @@ search.addEventListener('click', function(){
    fetch(url)
    .then (res => res.json())
    .then (data => {
-   //     if(searchInput.value === "") {
-   //     errorHandling.innerText="Search Field is Empty";
-   // }
+   // ----Logic section for Error handling
         if(data.docs !== (-1)){
            errorHandling.innerText = " No Data Found"
         } else{
            errorHandling.innerText = "";
         }
-       
+   // ---- Loop section for main operation  
        data.docs.forEach(item => {
          
           totalResult.innerText=`Total Result Found For (${data.q}): ${data.numFound}`
@@ -71,6 +69,7 @@ search.addEventListener('click', function(){
             
             </div>
           `;
+          //--err innerText clear
           errorHandling.innerText ="";
 
           bookContainer.appendChild(div)
